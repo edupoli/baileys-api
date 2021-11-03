@@ -7,7 +7,7 @@ const getChats = (req, res) => {
     const errors = validationResult(req)
     if(!errors.isEmpty()) return response(res, 400, {success: false, message: 'Please fill out all required inputs.'})
 
-    const session = whatsapp.getSession(req.query.session)
+    const session = whatsapp.getSession(req.body.session)
     if(!session) return response(res, 404, {success: false, message: 'The requested session cannot be found.'})
 
     response(res, 200, {success: true, data: whatsapp.getChats(session, 'single')})
@@ -19,7 +19,7 @@ const sendMessage = (req, res) => {
 
     const receiver = whatsapp.formatPhone(req.body.receiver)
     const message = req.body.message
-    const session = whatsapp.getSession(req.body.sender)
+    const session = whatsapp.getSession(req.body.session)
 
     if(!session) return response(res, 404, {success: false, message: 'The requested session cannot be found.'})
 

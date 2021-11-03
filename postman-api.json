@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "4e47ac1f-23ee-4d64-8bc8-ea84762913f2",
-		"name": "New Collection",
+		"name": "WhatsApp Api Baileys",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -15,7 +15,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"session\": \"instance-one\"\n}",
+							"raw": "{\n    \"session\": \"{{instance}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -52,7 +52,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"session\": \"instance-one\"\n}",
+							"raw": "{\n    \"session\": \"{{instance}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -85,7 +85,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{ \n    \"sender\": \"instance-one\",\n    \"name\" : \"group-test\",\n    \"members\" : \"5511900000000\"\n}",
+							"raw": "{ \n    \"session\": \"{{instance}}\",\n    \"name\" : \"group-test\",\n    \"members\" : \"5511900000000\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -109,11 +109,11 @@
 				{
 					"name": "Update Description",
 					"request": {
-						"method": "PATCH",
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{ \n    \"sender\": \"instance-one\",\n    \"groupId\" : \"551190000000-1635813336@g.us\",\n    \"description\" : \"Nova Descrição do Grupo\"\n}",
+							"raw": "{ \n    \"session\": \"{{instance}}\",\n    \"groupId\" : \"551190000000-1635813336@g.us\",\n    \"description\" : \"Nova Descrição do Grupo\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -137,11 +137,11 @@
 				{
 					"name": "Update Name",
 					"request": {
-						"method": "PATCH",
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{ \n    \"sender\": \"instance-one\",\n    \"groupId\" : \"551190000000-1635813336@g.us\",\n    \"name\" : \"Test 001\"\n}",
+							"raw": "{ \n    \"session\": \"{{instance}}\",\n    \"groupId\" : \"551190000000-1635813336@g.us\",\n    \"name\" : \"Test 001\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -169,7 +169,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{ \n    \"sender\": \"instance-one\",\n    \"groupId\" : \"551190000000-1635813336@g.us\",\n    \"members\" : \"55119000000\"\n}",
+							"raw": "{ \n    \"session\": \"{{instance}}\",\n    \"groupId\" : \"551190000000-1635813336@g.us\",\n    \"members\" : \"55119000000\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -197,7 +197,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{ \n    \"sender\": \"instance-one\",\n    \"groupId\" : \"551190000000-1635813336@g.us\",\n    \"members\" : \"55119000000\"\n}",
+							"raw": "{ \n    \"session\": \"{{instance}}\",\n    \"groupId\" : \"551190000000-1635813336@g.us\",\n    \"members\" : \"55119000000\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -225,7 +225,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{ \n    \"sender\": \"instance-one\",\n    \"groupId\" : \"551190000000-1635813336@g.us\",\n    \"members\" : \"551190000000\"\n}",
+							"raw": "{ \n    \"session\": \"{{instance}}\",\n    \"groupId\" : \"551190000000-1635813336@g.us\",\n    \"members\" : \"551190000000\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -248,24 +248,30 @@
 				},
 				{
 					"name": "All Groups",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n    \"session\": \"{{instance}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{host}}:{{port}}/groups/get?session=instance-one",
+							"raw": "{{host}}:{{port}}/groups/all-groups",
 							"host": [
 								"{{host}}"
 							],
 							"port": "{{port}}",
 							"path": [
 								"groups",
-								"get"
-							],
-							"query": [
-								{
-									"key": "session",
-									"value": "instance-one"
-								}
+								"all-groups"
 							]
 						}
 					},
@@ -281,7 +287,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{ \n    \"sender\": \"instance-one\",\n    \"groupId\" : \"551190000000-1635813336@g.us\"\n}",
+							"raw": "{ \n    \"session\": \"{{instance}}\",\n    \"groupId\" : \"551190000000-1635813336@g.us\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -312,7 +318,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{ \n    \"sender\": \"instance-one\",\n    \"groupId\" : \"551190000000-1635813336@g.us\"\n}",
+							"raw": "{ \n    \"session\": \"{{instance}}\",\n    \"groupId\" : \"551190000000-1635813336@g.us\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -340,7 +346,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{ \n    \"sender\": \"instance-one\",\n    \"groupId\" : \"551190000000-1635813336@g.us\"\n}",
+							"raw": "{ \n    \"session\": \"{{instance}}\",\n    \"groupId\" : \"551190000000-1635813336@g.us\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -364,11 +370,11 @@
 				{
 					"name": "Setting Message",
 					"request": {
-						"method": "PATCH",
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{ \n    \"sender\": \"instance-one\",\n    \"groupId\" : \"551190000000-1635813336@g.us\",\n    \"value\" : true\n}",
+							"raw": "{ \n    \"session\": \"{{instance}}\",\n    \"groupId\" : \"551190000000-1635813336@g.us\",\n    \"value\" : true\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -392,11 +398,11 @@
 				{
 					"name": "Setting Change",
 					"request": {
-						"method": "PATCH",
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{ \n    \"sender\": \"instance-one\",\n    \"groupId\" : \"551190000000-1635813336@g.us\",\n    \"value\" : true\n}",
+							"raw": "{ \n    \"session\": \"{{instance}}\",\n    \"groupId\" : \"551190000000-1635813336@g.us\",\n    \"value\" : true\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -412,6 +418,62 @@
 							"path": [
 								"groups",
 								"group-setting-change"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Accept Invite",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n    \"session\": \"{{instance}}\",\n    \"code\" : \"It8GoNNgWW9LfwtR8nuyru\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}:{{port}}/groups/group-accept-invite",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"groups",
+								"group-accept-invite"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Revoke Invite",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n    \"session\": \"{{instance}}\",\n    \"groupId\" : \"5511954440845-1635893868@g.us\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}:{{port}}/groups/group-revoke-invite",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"groups",
+								"group-revoke-invite"
 							]
 						}
 					},
@@ -448,6 +510,10 @@
 		{
 			"key": "port",
 			"value": "8000"
+		},
+		{
+			"key": "instance",
+			"value": "default"
 		}
 	]
 }

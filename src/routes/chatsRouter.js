@@ -3,14 +3,14 @@ const router = require('express').Router(),
 controller = require('./../controllers/chatsController')
 
 router.get(
-    '/get',
-    query('session').notEmpty(),
+    '/all-chats',
+    body('session').notEmpty(),
     controller.getChats
 )
 
 router.post(
-    '/send',
-    body('sender').notEmpty(),
+    '/send-message',
+    body('session').notEmpty(),
     body('receiver').notEmpty(),
     body('message').notEmpty(),
     controller.sendMessage

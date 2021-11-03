@@ -49,6 +49,7 @@ const createSession = async (session) => {
     wa.browserDescription = ['Windows', 'Chrome', '10']
     wa.version = [2,2134,10]
 
+
     let timeout = setTimeout(() => {
         if(fs.existsSync(path.join(__dirname, 'data', `session_qrcode.json`))) fs.unlinkSync(path.join(__dirname, 'data', `session_qrcode.json`))
         wa.close()
