@@ -1,5 +1,5 @@
 const {response} = require('./../response'),
-    {validationResult} = require('express-validator'),
+    {validationResult, body} = require('express-validator'),
     whatsapp = require('./../whatsapp'),
     {MessageType, GroupSettingChange} = require('@adiwajshing/baileys')
 
@@ -7,7 +7,7 @@ const getChats = (req, res) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) return response(res, 400, {success: false, message: 'Please fill out all required inputs.'})
 
-    const session = whatsapp.getSession(req.query.session)
+    const session = whatsapp.getSession(req.body.session)
     if (!session) return response(res, 404, {success: false, message: 'The requested session cannot be found.'})
 
     response(res, 200, {success: true, data: whatsapp.getChats(session, 'group')})
@@ -19,7 +19,7 @@ const sendMessage = (req, res) => {
 
     const receiver = whatsapp.formatGroup(req.body.receiver)
     const message = req.body.message
-    const session = whatsapp.getSession(req.body.sender)
+    const session = whatsapp.getSession(req.body.session)
 
     if (!session) return response(res, 404, {success: false, message: 'The requested session cannot be found.'})
 
@@ -33,7 +33,7 @@ const groupCreate = (req, res) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) return response(res, 400, {success: false, message: 'Please fill out all required inputs.'})
 
-    const session = whatsapp.getSession(req.body.sender)
+    const session = whatsapp.getSession(req.body.session)
     const name = req.body.name
     const members = whatsapp.formatNumberGroup(req.body.members)
 
@@ -53,7 +53,7 @@ const groupAddMember = (req, res) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) return response(res, 400, {success: false, message: 'Please fill out all required inputs.'})
 
-    const session = whatsapp.getSession(req.body.sender)
+    const session = whatsapp.getSession(req.body.session)
     const groupId = req.body.groupId
     const members = whatsapp.formatNumberGroup(req.body.members)
 
@@ -73,7 +73,7 @@ const groupMakeAdmin = (req, res) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) return response(res, 400, {success: false, message: 'Please fill out all required inputs.'})
 
-    const session = whatsapp.getSession(req.body.sender)
+    const session = whatsapp.getSession(req.body.session)
     const groupId = req.body.groupId
     const members = whatsapp.formatNumberGroup(req.body.members)
 
@@ -93,7 +93,7 @@ const groupRemoveAdmin = (req, res) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) return response(res, 400, {success: false, message: 'Please fill out all required inputs.'})
 
-    const session = whatsapp.getSession(req.body.sender)
+    const session = whatsapp.getSession(req.body.session)
     const groupId = req.body.groupId
     const members = whatsapp.formatNumberGroup(req.body.members)
 
@@ -113,7 +113,7 @@ const groupUpdateName = (req, res) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) return response(res, 400, {success: false, message: 'Please fill out all required inputs.'})
 
-    const session = whatsapp.getSession(req.body.sender)
+    const session = whatsapp.getSession(req.body.session)
     const name = req.body.name
     const groupId = req.body.groupId
 
@@ -133,7 +133,7 @@ const groupUpdateDescription = (req, res) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) return response(res, 400, {success: false, message: 'Please fill out all required inputs.'})
 
-    const session = whatsapp.getSession(req.body.sender)
+    const session = whatsapp.getSession(req.body.session)
     const description = req.body.description
     const groupId = req.body.groupId
 
@@ -153,7 +153,7 @@ const groupSettingMessage = (req, res) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) return response(res, 400, {success: false, message: 'Please fill out all required inputs.'})
 
-    const session = whatsapp.getSession(req.body.sender)
+    const session = whatsapp.getSession(req.body.session)
     const value = req.body.value
     const groupId = req.body.groupId
 
@@ -173,7 +173,7 @@ const groupSettingChange = (req, res) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) return response(res, 400, {success: false, message: 'Please fill out all required inputs.'})
 
-    const session = whatsapp.getSession(req.body.sender)
+    const session = whatsapp.getSession(req.body.session)
     const value = req.body.value
     const groupId = req.body.groupId
 
@@ -193,7 +193,7 @@ const groupLeave = (req, res) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) return response(res, 400, {success: false, message: 'Please fill out all required inputs.'})
 
-    const session = whatsapp.getSession(req.body.sender)
+    const session = whatsapp.getSession(req.body.session)
     const groupId = req.body.groupId
 
     if (!session) return response(res, 404, {success: false, message: 'The requested session cannot be found.'})
@@ -212,7 +212,7 @@ const groupInviteCode = (req, res) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) return response(res, 400, {success: false, message: 'Please fill out all required inputs.'})
 
-    const session = whatsapp.getSession(req.body.sender)
+    const session = whatsapp.getSession(req.body.session)
     const groupId = req.body.groupId
 
     if (!session) return response(res, 404, {success: false, message: 'The requested session cannot be found.'})
@@ -233,7 +233,7 @@ const groupMetadata = (req, res) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) return response(res, 400, {success: false, message: 'Please fill out all required inputs.'})
 
-    const session = whatsapp.getSession(req.body.sender)
+    const session = whatsapp.getSession(req.body.session)
     const groupId = req.body.groupId
 
     if (!session) return response(res, 404, {success: false, message: 'The requested session cannot be found.'})
@@ -246,6 +246,42 @@ const groupMetadata = (req, res) => {
         }))
         .catch(err => response(res, 500, {success: false, message: res}))
 
+}
+
+const groupAcceptInvite = (req, res) => {
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) return response(res, 400, {success: false, message: 'Please fill out all required inputs.'})
+
+    const session = whatsapp.getSession(req.body.session)
+    const code = req.body.code
+
+    if (!session) return response(res, 404, {success: false, message: 'The requested session cannot be found.'})
+
+    session.acceptInvite(code)
+        .then((success) => response(res, 200, {
+            success: true,
+            message: 'Joined to.' + success.gid,
+        }))
+        .catch(err => response(res, 500, {success: false, message: res}))
+}
+
+const groupRevokeInvite = (req, res) => {
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) return response(res, 400, {success: false, message: 'Please fill out all required inputs.'})
+
+    const session = whatsapp.getSession(req.body.session)
+    const groupId = req.body.groupId
+
+    if (!session) return response(res, 404, {success: false, message: 'The requested session cannot be found.'})
+
+    session.revokeInvite (groupId)
+        .then((success) => response(res, 200, {
+            success: true,
+            message: 'new group code: ' + success.code,
+            code: success.code,
+            link: "https://chat.whatsapp.com/"+success.code
+        }))
+        .catch(err => response(res, 500, {success: false, message: err.message}))
 }
 
 module.exports = {
@@ -261,6 +297,8 @@ module.exports = {
     groupSettingChange: groupSettingChange,
     groupLeave: groupLeave,
     groupInviteCode: groupInviteCode,
-    groupMetadata: groupMetadata
+    groupMetadata: groupMetadata,
+    groupAcceptInvite: groupAcceptInvite,
+    groupRevokeInvite: groupRevokeInvite
 
 }
